@@ -1,1 +1,54 @@
-Hello World
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Linus BF</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    <script>
+        document.getElementById("submit").addEventListener("click", function (e) {
+            e.preventDefault();
+            const title = document.getElementById("title").value;
+            const description = document.getElementById("description").value;
+            const data = {
+                title,
+                description
+            };
+            fetch("https://linusbf.herokuapp.com/api/issue", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }).then(res => res.json()).then(data => {
+                alert("Issue submitted successfully!");
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>Found an issue with one of my projects?</h2>
+    <h4>Please submit a report below</h4>
+    <form>
+        <input id="title" type="text" placeholder="Title" />
+        <textarea id="description" placeholder="Description"></textarea>
+        <button id="submit">Submit</button>
+    </form>
+</body>
+</html>
